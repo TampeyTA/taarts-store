@@ -1,9 +1,15 @@
-// lib/supabase.ts
+import { createBrowserClient } from "@supabase/ssr"
 
-import { createClient } from '@supabase/supabase-js'
-
-// These env vars come from your .env.local file
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// Client-side supabase client
+export const createClientComponentClient = () => {
+  return createBrowserClient(supabaseUrl, supabaseAnonKey)
+}
+
+// Export a default client for API routes and client components
+export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey)
+
+// Default export
+export default supabase
